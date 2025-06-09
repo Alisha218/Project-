@@ -140,17 +140,59 @@ app.get('/inventory',async(req,res)=>{
 });
 
 app.post('/donorscreate', async (req, res) => {
+  const { donor_id, name, contact } = req.body;
   try {
-    const { name, contact } = req.body;
-    const result = await pool.query(
-      'INSERT INTO donor (name, contact) VALUES ($1, $2) RETURNING id',
-      [name, contact]
+    await pool.query(
+      'INSERT INTO donor (donor_id, name, contact) VALUES ($1, $2, $3)',
+      [donor_id, name, contact]
     );
-    res.status(201).json({ donor_id: result.rows[0].id });
+    res.status(201).json({ donor_id });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
+
+app.post('/ambulancescreate', async (req, res) => {
+  const { ambulance_id, license_plate, status } = req.body;
+  try {
+    await pool.query(
+      'INSERT INTO ambulances (ambulance_id, license_plate, status) VALUES ($1, $2, $3)',
+      [ambulance_id, license_plate, status]
+    );
+    res.status(201).json({ ambulance_id});
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.post('/donationscreate', async (req, res) => {
+  const {donation_id, donor_id, donation_date,donation_amount} = req.body;
+  try {
+    await pool.query(
+      'INSERT INTO donations (donation_id, donor_id, donation_date,donation_amount) VALUES ($1, $2, $3, $4)',
+      [donation_id, donor_id, donation_date,donation_amount]
+    );
+    res.status(201).json({ donation_id});
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.post('/employeescreate', async (req, res) => {
+  const {employee_id,name,salary } = req.body;
+  try {
+    await pool.query(
+      'INSERT INTO employees (employee_id,name,salary) VALUES ($1, $2, $3)',
+      [employee_id,name,salary]
+    );
+    res.status(201).json({employee_id});
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+
+
 
 
 
