@@ -8,14 +8,30 @@ app.use(cors());
 app.use(express.json());
 
 
-app.get('/donors', async (req, res) => {
-    try {
-        const [donors] = await pool.query('SELECT * FROM Donors');
-        res.json(donors);
-    } catch (err) {
-        res.status(500).json({Error: err.message});
+app.get('/',async(req,res)=>{
+    try{
+        res.json('WELCOME TO WELFARE');
+
+    }catch(err){
+        res.status(500).json({Error:err.message});
+
     }
 });
+
+
+
+app.get('/donors',async (req,res) => {
+    try {
+        const result = await pool.query('select * from donors');
+        res.json(result.rows);
+    } catch (err) {
+        res.status(500).json({Error:err.message});
+    }
+});
+
+
+
+
 
 
 
@@ -33,4 +49,4 @@ app.get('/donors', async (req, res) => {
 const PORT = process.env.PORT;
 app.listen(PORT,()=>{
     console.log(`Connected Sucesfully on PORT ${PORT}`); 
-})
+});
