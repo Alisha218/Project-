@@ -191,6 +191,98 @@ app.post('/employeescreate', async (req, res) => {
   }
 });
 
+app.post('/graveyardcreate', async (req, res) => {
+  const {graveyard_id, location, total_plots,status} = req.body;
+  try {
+    await pool.query(
+      'INSERT INTO graveyard (graveyard_id, location, total_plots,status) VALUES ($1, $2, $3, $4)',
+      [graveyard_id, location, total_plots,status]
+    );
+    res.status(201).json({ graveyard_id});
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.post('/inventorycreate', async (req, res) => {
+  const {item_id, name,quantity,category} = req.body;
+  try {
+    await pool.query(
+      'INSERT INTO inventory (item_id, name,quantity,category) VALUES ($1, $2, $3, $4)',
+      [item_id, name,quantity,category]
+    );
+    res.status(201).json({item_id});
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.post('/orphangescreate', async (req, res) => {
+  const {orphanage_id,name,location } = req.body;
+  try {
+    await pool.query(
+      'INSERT INTO orphanages (orphanage_id,name,location) VALUES ($1, $2, $3)',
+      [orphanage_id,name,location]
+    );
+    res.status(201).json({orphanage_id});
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.post('/orphanscreate', async (req, res) => {
+  const {orphan_id, name, age,orphanage_id} = req.body;
+  try {
+    await pool.query(
+      'INSERT INTO orphans (orphan_id, name, age,orphanage_id) VALUES ($1, $2, $3, $4)',
+      [orphan_id, name, age,orphanage_id]
+    );
+    res.status(201).json({ orphan_id});
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.post('/servicescreate', async (req, res) => {
+  const {service_id, name} = req.body;
+  try {
+    await pool.query(
+      'INSERT INTO services (service_id, name) VALUES ($1, $2)',
+      [service_id, name]
+    );
+    res.status(201).json({ service_id});
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.post('/shelterscreate', async (req, res) => {
+  const {shelter_id, location, capacity,type} = req.body;
+  try {
+    await pool.query(
+      'INSERT INTO shelters (shelter_id, location, capacity,type) VALUES ($1, $2, $3, $4)',
+      [shelter_id, location, capacity,type]
+    );
+    res.status(201).json({ shelter_id});
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.post('/volunteerscreate', async (req, res) => {
+  const {volunteer_id, name, skill,service_id} = req.body;
+  try {
+    await pool.query(
+      'INSERT INTO volunteers (volunteer_id, name, skill,service_id) VALUES ($1, $2, $3, $4)',
+      [volunteer_id, name, skill,service_id]
+    );
+    res.status(201).json({ volunteer_id});
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+
 
 
 
