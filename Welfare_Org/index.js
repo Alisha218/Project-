@@ -282,6 +282,22 @@ app.post('/volunteerscreate', async (req, res) => {
   }
 });
 
+// api for donation by month
+app.get('/donationbymonth', async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT TO_CHAR(donation_date, 'YYYY-MM') AS month, SUM(donation_amount) AS total
+      FROM donations
+      GROUP BY month
+      ORDER BY month;
+    `);
+    res.json(result.rows);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+
 
 
 
