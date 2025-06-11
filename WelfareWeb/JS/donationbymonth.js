@@ -58,6 +58,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   } catch (error) {
     console.error('Error loading donations chart:', error);
-    // Optional: You can display an error message on page here if needed
+    
   }
 });
